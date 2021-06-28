@@ -14,7 +14,7 @@ pool:
 steps:
 - task: Gradle@2
   inputs:
-    workingDirectory: ''
+    workingDirectory: '$(Build.SourcesDirectory)/ABVCatalogApp'
     gradleWrapperFile: '$(Build.SourcesDirectory)/ABVCatalogApp/gradlew'
     gradleOptions: '-Xmx3072m'
     publishJUnitResults: false
