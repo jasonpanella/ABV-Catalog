@@ -25,7 +25,7 @@ steps:
     jdkArchitectureOption: 'x64'
     publishJUnitResults: true
     testResultsFiles: '**/TEST-*.xml'
-    tasks: 'assemble'
+    tasks: 'build --refresh-dependencies'
   displayName: gradlew assemble
 
 - task: CopyFiles@2
