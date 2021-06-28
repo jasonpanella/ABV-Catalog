@@ -4,8 +4,13 @@
 # https://aka.ms/yaml
 
 trigger:
-- Development
-
+  branches:
+    include:
+      - development
+  paths:
+    include:
+      - /ABVCatalogApp/*
+      
 pool:
   vmImage: macOS-latest
 
@@ -18,10 +23,10 @@ steps:
     javaHomeOption: 'JDKVersion'
     jdkVersionOption: '1.8'
     jdkArchitectureOption: 'x64'
-    publishJUnitResults: false
+    publishJUnitResults: true
     testResultsFiles: '**/TEST-*.xml'
-    tasks: 'assembleRelease'
-
+    tasks: 'assembleDebug test'
+  displayName: gradlew assembleDebug test
 
 - task: CopyFiles@2
   inputs:
