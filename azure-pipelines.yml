@@ -30,13 +30,14 @@ steps:
 
 - task: CopyFiles@2
   inputs:
+    SourceFolder: '$(system.defaultworkingdirectory)/ABVCatalogApp/app/build/outputs'
     contents: '**/*.apk'
-    targetFolder: '$(build.artifactStagingDirectory)'
+    targetFolder: '$(build.artifactStagingDirectory)/drop'
   displayName: Copy .apk files to artifact staging directory
 
 - task: PublishBuildArtifacts@1
   inputs:
     pathToPublish: '$(build.artifactStagingDirectory)'
-    artifactName: 'drop'
-    artifactType: 'container'
-  displayName: Publish artifacts
+    artifactName: 'abvcatalog-ci'
+  displayName: 'Publish artifact abvcatalog-ci'
+  continueOnError: true
