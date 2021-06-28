@@ -10,6 +10,19 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+- task: Gradle@2
+  inputs:
+    workingDirectory: ''
+    gradleWrapperFile: 'gradlew'
+    gradleOptions: '-Xmx3072m'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    jdkArchitectureOption: 'x64'
+    publishJUnitResults: false
+    testResultsFiles: '**/TEST-*.xml'
+    tasks: 'assembleRelease'
+
+
 - task: CopyFiles@2
   inputs:
     SourceFolder: $(Build.SourcesDirectory)
