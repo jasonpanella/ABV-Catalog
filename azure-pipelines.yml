@@ -7,7 +7,7 @@ trigger:
 - Development
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: macOS-latest
 
 steps:
 - task: Gradle@2
@@ -25,13 +25,13 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: $(Build.SourcesDirectory)
-    contents: '**/*.release.apk' 
+    contents: '**/*.apk'
     targetFolder: '$(build.artifactStagingDirectory)'
-    overWrite: true
+  displayName: Copy .apk files to artifact staging directory
 
 - task: PublishBuildArtifacts@1
   inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)/app/build/outputs/apk/release/'
-    artifactName: 'apks' 
-    publishLocation: 'container'
+    pathToPublish: '$(build.artifactStagingDirectory)'
+    artifactName: 'drop'
+    artifactType: 'container'
+  displayName: Publish artifacts
