@@ -17,7 +17,7 @@ pool:
 steps:
 - task: Gradle@2
   inputs:
-    workingDirectory: ''
+    workingDirectory: '/ABVCatalogApp/*'
     gradleWrapperFile: 'gradlew'
     gradleOptions: '-Xmx3072m'
     javaHomeOption: 'JDKVersion'
