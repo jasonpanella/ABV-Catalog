@@ -25,7 +25,7 @@ steps:
     jdkArchitectureOption: 'x64'
     publishJUnitResults: true
     testResultsFiles: '**/TEST-*.xml'
-    tasks: 'build --refresh-dependencies'
+    tasks: 'assembleDebug'
   displayName: gradlew assemble
 
 - script: echo $(Agent.BuildDirectory)
