@@ -28,6 +28,9 @@ steps:
     tasks: 'build --refresh-dependencies'
   displayName: gradlew assemble
 
+- script: echo $(Agent.BuildDirectory)
+  displayName: 'Run a one-line script'
+
 - task: CopyFiles@2
   inputs:
     SourceFolder: '$(Agent.BuildDirectory)/ABVCatalogApp/app/build/outputs'
