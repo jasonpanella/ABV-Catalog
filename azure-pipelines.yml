@@ -30,7 +30,7 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(system.defaultworkingdirectory)/ABVCatalogApp/app/build/outputs'
+    SourceFolder: '$(Agent.BuildDirectory)/ABVCatalogApp/app/build/outputs'
     contents: '**/*.apk'
     targetFolder: '$(build.artifactStagingDirectory)/drop'
   displayName: Copy .apk files to artifact staging directory
