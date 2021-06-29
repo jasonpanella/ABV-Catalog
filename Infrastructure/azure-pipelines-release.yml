@@ -17,18 +17,31 @@ steps:
     workingDirectory: '$(Build.SourcesDirectory)/ABVCatalogApp'
     gradleWrapperFile: '$(Build.SourcesDirectory)/ABVCatalogApp/gradlew'
     gradleOptions: '-Xmx3072m'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    jdkArchitectureOption: 'x64'
     publishJUnitResults: false
     testResultsFiles: '**/TEST-*.xml'
-    tasks: 'build --refresh-dependencies'
+    tasks: 'assembleRelease'
   displayName: gradlew assemble
 
 - script: echo $(Agent.BuildDirectory)
   displayName: 'Run a one-line script'
 
+- task: AndroidSigning@3
+  inputs:
+    apkFiles: '**/*.apk'
+    apksignerKeystoreFile: 'android.jks'
+    apksignerKeystorePassword: '$(keystore-password)'
+    apksignerKeystoreAlias: '$(key-alias)'
+    apksignerKeyPassword: '$(key-password)'
+    apksignerArguments: '--out $(Build.SourcesDirectory)/ABVCatalogApp/app/build/outputs/apk/release/app.release.apk'
+    zipalign: true
+
 - task: CopyFiles@2
   inputs:
     SourceFolder: '$(system.defaultworkingdirectory)/ABVCatalogApp/app/build/outputs'
-    contents: '**/*.apk'
+    contents: '**/*.release.apk'
     targetFolder: '$(build.artifactStagingDirectory)/drop'
   displayName: Copy .apk files to artifact staging directory
 
