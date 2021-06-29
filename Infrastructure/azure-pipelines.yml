@@ -22,6 +22,16 @@ steps:
     tasks: 'build --refresh-dependencies'
   displayName: gradlew assemble
 
+- task: AndroidSigning@3
+  inputs:
+    apkFiles: '**/*.apk'
+    apksignerKeystoreFile: 'android.keystore'
+    apksignerKeystorePassword: $(keystore-password)
+    apksignerKeystoreAlias: $(key-alias)
+    apksignerKeyPassword: $(key-password)
+    apksignerArguments: '--out $(Build.SourcesDirectory)/ABVCatalogApp/app/build/outputs/apk/release/app.release.apk'
+    zipalign: false
+
 - task: CopyFiles@2
   inputs:
     SourceFolder: '$(system.defaultworkingdirectory)/ABVCatalogApp/app/build/outputs'
