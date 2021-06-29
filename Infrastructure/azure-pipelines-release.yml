@@ -36,7 +36,7 @@ steps:
     apksignerKeystoreAlias: '$(key-alias)'
     apksignerKeyPassword: '$(key-password)'
     apksignerArguments: '--out $(Build.SourcesDirectory)/ABVCatalogApp/app/build/outputs/apk/release/app.release.apk'
-    zipalign: true
+    zipalign: false
 
 - task: CopyFiles@2
   inputs:
