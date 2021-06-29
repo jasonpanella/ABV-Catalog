@@ -25,13 +25,10 @@ steps:
     tasks: 'assembleRelease'
   displayName: gradlew assemble
 
-- script: echo $(Agent.BuildDirectory)
-  displayName: 'Run a one-line script'
-
 - task: AndroidSigning@3
   inputs:
     apkFiles: '**/*.apk'
-    apksignerKeystoreFile: 'android.jks'
+    apksignerKeystoreFile: 'android.keystore'
     apksignerKeystorePassword: '$(keystore-password)'
     apksignerKeystoreAlias: '$(key-alias)'
     apksignerKeyPassword: '$(key-password)'
