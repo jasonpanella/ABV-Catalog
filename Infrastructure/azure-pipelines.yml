@@ -27,9 +27,9 @@ steps:
    apkFiles: '**/*.apk'
    apksign: true
    apksignerKeystoreFile: 'android.jks'
-   apksignerKeystorePassword: '$(keystore-password)'
-   apksignerKeystoreAlias: '$(key-alias)'
-   apksignerKeyPassword: '$(key-password)'
+   apksignerKeystorePassword: $(keystore-password)
+   apksignerKeystoreAlias: $(key-alias)
+   apksignerKeyPassword: $(key-password)
    apksignerArguments: --out $(Build.SourcesDirectory)/ABVCatalogApp/app/build/outputs/apk/release/app.release.apk
    zipalign: true
 
