@@ -4,16 +4,37 @@
 # https://aka.ms/yaml
 
 trigger:
-- Development
-
+  branches:
+    include:
+      - development
+      
 pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo Hello, world!
+- task: Gradle@2
+  inputs:
+    workingDirectory: '$(Build.SourcesDirectory)/ABVCatalogApp'
+    gradleWrapperFile: '$(Build.SourcesDirectory)/ABVCatalogApp/gradlew'
+    gradleOptions: '-Xmx3072m'
+    publishJUnitResults: false
+    testResultsFiles: '**/TEST-*.xml'
+    tasks: 'build --refresh-dependencies'
+  displayName: gradlew assemble
+
+- script: echo $(Agent.BuildDirectory)
   displayName: 'Run a one-line script'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(system.defaultworkingdirectory)/ABVCatalogApp/app/build/outputs'
+    contents: '**/*.apk'
+    targetFolder: '$(build.artifactStagingDirectory)/drop'
+  displayName: Copy .apk files to artifact staging directory
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: '$(build.artifactStagingDirectory)'
+    artifactName: 'abvcatalog-ci'
+  displayName: 'Publish artifact abvcatalog-ci'
+  continueOnError: true
