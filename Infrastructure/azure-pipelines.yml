@@ -25,12 +25,12 @@ steps:
 - task: AndroidSigning@3
   inputs:
     apkFiles: '**/*.apk'
-    apksignerKeystoreFile: 'android.jks'
-    apksignerKeystorePassword: '$(keystore-password)'
-    apksignerKeystoreAlias: '$(key-alias)'
-    apksignerKeyPassword: '$(key-password)'
+    apksignerKeystoreFile: 'android.keystore'
+    apksignerKeystorePassword: $(keystore-password)
+    apksignerKeystoreAlias: $(keystore-alias)
+    apksignerKeyPassword: $(key-password)
     apksignerArguments: '--out $(Build.SourcesDirectory)/ABVCatalogApp/app/build/outputs/apk/release/app.release.apk'
-    zipalign: true
+    zipalign: false
 
 - task: CopyFiles@2
   inputs:
