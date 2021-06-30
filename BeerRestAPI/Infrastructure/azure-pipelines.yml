@@ -9,39 +9,42 @@ trigger:
       - development
       
 pool:
-  vmImage: ubuntu-latest
+  vmImage: windows-latest
 
 steps:
-- task: Gradle@2
+- task: NuGetToolInstaller@1
+  displayName: 'Use NuGet 4.4.1'
   inputs:
-    workingDirectory: '$(Build.SourcesDirectory)/ABVCatalogApp'
-    gradleWrapperFile: '$(Build.SourcesDirectory)/ABVCatalogApp/gradlew'
-    gradleOptions: '-Xmx3072m'
-    publishJUnitResults: false
-    testResultsFiles: '**/TEST-*.xml'
-    tasks: 'build --refresh-dependencies'
-  displayName: gradlew assemble
+    versionSpec: 4.4.1
 
-- task: AndroidSigning@3
+- task: NuGetCommand@2
   inputs:
-    apkFiles: '**/*.apk'
-    apksignerKeystoreFile: 'android.keystore'
-    apksignerKeystorePassword: $(keystore-password)
-    apksignerKeystoreAlias: $(keystore-alias)
-    apksignerKeyPassword: $(key-password)
-    apksignerArguments: '--out $(Build.SourcesDirectory)/ABVCatalogApp/app/build/outputs/apk/release/app.release.apk'
-    zipalign: false
+    restoreSolution: '$(solution)'
+
+- task: VSBuild@1
+  inputs:
+    solution: '$(solution)'
+    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: $(System.DefaultWorkingDirectory)\BeerRestAPI\bin\Release\netcoreapp3.1
+    archiveType: 'zip'
+    includeRootFolder: false
+    archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildNumber).zip
+    replaceExistingArchive: true
 
 - task: CopyFiles@2
+  displayName: 'Copy infrastructure files to staging directory'
   inputs:
-    SourceFolder: '$(system.defaultworkingdirectory)/ABVCatalogApp/app/build/outputs'
-    contents: '**/*.apk'
-    targetFolder: '$(build.artifactStagingDirectory)/drop'
-  displayName: Copy .apk files to artifact staging directory
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/Infrastructure'
+    Contents: 'BeerRestAPI\**\Infrastructure\*'
+    flattenFolders: true
 
 - task: PublishBuildArtifacts@1
+  displayName: 'Publish artifact'
   inputs:
-    pathToPublish: '$(build.artifactStagingDirectory)'
-    artifactName: 'abvcatalog-ci'
-  displayName: 'Publish artifact abvcatalog-ci'
-  continueOnError: true
+    PathtoPublish: $(Build.ArtifactStagingDirectory)
+    ArtifactName: 'drop'
