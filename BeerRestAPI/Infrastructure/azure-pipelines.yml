@@ -1,0 +1,47 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+  branches:
+    include:
+      - development
+      
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: Gradle@2
+  inputs:
+    workingDirectory: '$(Build.SourcesDirectory)/ABVCatalogApp'
+    gradleWrapperFile: '$(Build.SourcesDirectory)/ABVCatalogApp/gradlew'
+    gradleOptions: '-Xmx3072m'
+    publishJUnitResults: false
+    testResultsFiles: '**/TEST-*.xml'
+    tasks: 'build --refresh-dependencies'
+  displayName: gradlew assemble
+
+- task: AndroidSigning@3
+  inputs:
+    apkFiles: '**/*.apk'
+    apksignerKeystoreFile: 'android.keystore'
+    apksignerKeystorePassword: $(keystore-password)
+    apksignerKeystoreAlias: $(keystore-alias)
+    apksignerKeyPassword: $(key-password)
+    apksignerArguments: '--out $(Build.SourcesDirectory)/ABVCatalogApp/app/build/outputs/apk/release/app.release.apk'
+    zipalign: false
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(system.defaultworkingdirectory)/ABVCatalogApp/app/build/outputs'
+    contents: '**/*.apk'
+    targetFolder: '$(build.artifactStagingDirectory)/drop'
+  displayName: Copy .apk files to artifact staging directory
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: '$(build.artifactStagingDirectory)'
+    artifactName: 'abvcatalog-ci'
+  displayName: 'Publish artifact abvcatalog-ci'
+  continueOnError: true
