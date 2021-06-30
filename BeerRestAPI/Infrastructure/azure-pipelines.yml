@@ -24,7 +24,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: build
-    projects: $(System.DefaultWorkingDirectory)\*.sln
+    projects: $(System.DefaultWorkingDirectory)\BeerRestAPI\*.sln
     arguments: '--configuration $(BuildConfiguration) --no-incremental --no-restore'
 
 - task: ArchiveFiles@2
