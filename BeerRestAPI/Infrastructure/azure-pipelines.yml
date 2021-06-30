@@ -8,24 +8,6 @@ trigger:
     include:
       - development
       
-variables:
-  - group: ReleaseVersionNumber
-  - group: BuildNumberPropertyName
-  - group: JiraVersioningDetails
-  - group: AzureKeys
-  - group: Enterprise Tools
-  - name: Major
-    value: 4
-  - name: Minor
-    value: 0
-  - name: Hotfix
-    value: 0
-  - name: BuildPlatform
-    value: 'Any CPU'
-  - name: BuildConfiguration
-    value: 'Release'
-
-
 pool:
   vmImage: windows-latest
 
