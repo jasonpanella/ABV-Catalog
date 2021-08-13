@@ -13,4 +13,5 @@
     <color name="screen_background">#F9F9F9</color>
     <color name="colorPrimaryLight">#903A89CF</color>
     <color name="accent1">#b0000000</color>
+    <color name="textColorPrimary">#212121</color>
 </resources>

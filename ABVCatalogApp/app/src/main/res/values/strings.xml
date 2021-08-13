@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Navigation Drawer</string>
 
+    <!-- SyncFragment -->
+    <string name="syncing">Syncing…</string>
+
     <!--to toggle the open close button
         of the navigation drawer-->
     <string name="nav_open">Open</string>

@@ -1,15 +1,18 @@
-package com.example.abvcatalogapp
+package com.example.abvcatalogapp.utils
 
+import com.example.domain.model.beer.Beer
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import android.os.Build
 import org.threeten.bp.OffsetDateTime
 
 class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
-        SQLiteOpenHelper(context, DATABASE_NAME, factory, DATABASE_VERSION) {
+        SQLiteOpenHelper(context,
+            DATABASE_NAME, factory,
+            DATABASE_VERSION
+        ) {
 
 
     override fun onCreate(db: SQLiteDatabase) {
@@ -92,7 +95,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
 
     companion object {
         const val DATABASE_VERSION = 1
-        const val DATABASE_NAME = "jason.db"
+        const val DATABASE_NAME = "abvCatalog.db"
         const val TABLE_NAME = "beers"
 
         const val COLUMN_ID = "brewery_id"

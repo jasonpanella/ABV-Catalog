@@ -1,4 +1,4 @@
-package com.example.abvcatalogapp
+package com.example.abvcatalogapp.ui
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -8,18 +8,26 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.findNavController
+import com.example.abvcatalogapp.R
+import com.example.abvcatalogapp.feature.sync.data.SyncRepository
+import com.example.abvcatalogapp.utils.DBHelper
 import com.google.android.material.navigation.NavigationView
 import java.io.BufferedReader
 import java.io.InputStream
 import java.io.InputStreamReader
 import java.nio.charset.Charset
+import com.example.domain.model.beer.Beer
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     lateinit var toolbar: Toolbar
     lateinit var drawerLayout: DrawerLayout
     lateinit var navView: NavigationView
+
     lateinit var beer: Beer
+    lateinit var  syncRepository: SyncRepository
 
 
     var dbHandler = DBHelper(this, null)
@@ -41,6 +49,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         navView.setNavigationItemSelectedListener(this)
+
+        //withContext(dispatcherProvider.Main) {
+            //findNavController(R.id.nav_host).navigate(R.id.launcherFragment)
+
+        //}
+
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -76,9 +90,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
                     val splitMe = line
                     val splitByQuote =
-                        splitMe.split("\"".toRegex()).toTypedArray()
+                            splitMe.split("\"".toRegex()).toTypedArray()
                     val splitByComma: Array<Array<String?>?> =
-                        arrayOfNulls(splitByQuote.size)
+                            arrayOfNulls(splitByQuote.size)
                     for (i in splitByQuote.indices) {
                         val part = splitByQuote[i]
                         if (i % 2 == 0) {
@@ -106,15 +120,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     //val tokens = line.split(",(?=(?:[^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*\$)")
                     if (coll.size > 0) {
                         val beer = Beer(
-                            Integer.parseInt(coll[BEER_BREWERY_IDX].replace("\"", "")),
-                            coll[BEER_NAME_IDX].replace("\"", ""),
-                            Integer.parseInt(coll[BEER__CAT_IDX].replace("\"", "")),
-                            Integer.parseInt(coll[BEER__STYLE_IDX].replace("\"", "")),
-                            coll[BEER__ABV_IDX].replace("\"", "").toFloat(),
-                            coll[BEER__IBU_IDX].replace("\"", "").toFloat(),
-                            coll[BEER__SRM_IDX].replace("\"", "").toFloat(),
-                            Integer.parseInt(coll[BEER__UPC_IDX].replace("\"", "")),
-                            coll[BEER__DESCRIPT_IDX].replace("\"", ""))
+                                Integer.parseInt(coll[BEER_BREWERY_IDX].replace("\"", "")),
+                                coll[BEER_NAME_IDX].replace("\"", ""),
+                                Integer.parseInt(coll[BEER__CAT_IDX].replace("\"", "")),
+                                Integer.parseInt(coll[BEER__STYLE_IDX].replace("\"", "")),
+                                coll[BEER__ABV_IDX].replace("\"", "").toFloat(),
+                                coll[BEER__IBU_IDX].replace("\"", "").toFloat(),
+                                coll[BEER__SRM_IDX].replace("\"", "").toFloat(),
+                                Integer.parseInt(coll[BEER__UPC_IDX].replace("\"", "")),
+                                coll[BEER__DESCRIPT_IDX].replace("\"", ""))
 
                         beers.add(beer)
                     }
@@ -126,7 +140,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 for (customer in beers) {
                     dbHandler.insertRow(customer)
                 }
-
                 // Read the data
                 Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show()
             }

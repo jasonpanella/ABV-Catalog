@@ -1,4 +1,5 @@
-package com.example.abvcatalogapp
+package com.example.domain.model.beer
+
 
 data class Beer(
     val breweryId: Int,
