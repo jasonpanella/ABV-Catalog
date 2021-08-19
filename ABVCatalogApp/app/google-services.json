@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "939071166272",
+    "firebase_url": "https://ftg-app-android.firebaseio.com",
+    "project_id": "ftg-app-android",
+    "storage_bucket": "ftg-app-android.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:939071166272:android:79f11f97ef89f41424cca5",
+        "android_client_info": {
+          "package_name": "com.example.beer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "939071166272-v9hb6l2chbg9j3gs0dl47qccqo8ukh6r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.beer",
+            "certificate_hash": "3c26268ba87117f30e6bbb19210a2c62aadcfb4b"
+          }
+        },
+        {
+          "client_id": "939071166272-dmq9jnfhjgdfh7lu39lfrqnd0kv3l1qq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhr8bDlWTA5B6339aeRWLoTEXjPVoqiL0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "939071166272-dmq9jnfhjgdfh7lu39lfrqnd0kv3l1qq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

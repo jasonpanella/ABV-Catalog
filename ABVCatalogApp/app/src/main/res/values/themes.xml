@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.ABVCatalogApp" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.MainActivity" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -12,14 +12,16 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
-    </style>
-
-    <style name="Theme.ABVCatalogApp.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.ABVCatalogApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.MainActivity.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 
-    <style name="Theme.ABVCatalogApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Theme.MainActivity.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.MainActivity.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
