@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:939071166272:android:79f11f97ef89f41424cca5",
         "android_client_info": {
-          "package_name": "com.acosta.ftg"
+          "package_name": "com.example.beer"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "939071166272-v9hb6l2chbg9j3gs0dl47qccqo8ukh6r.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.acosta.ftg",
+            "package_name": "com.example.beer",
             "certificate_hash": "3c26268ba87117f30e6bbb19210a2c62aadcfb4b"
           }
         },
